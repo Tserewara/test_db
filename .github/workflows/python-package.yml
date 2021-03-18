@@ -28,12 +28,6 @@ jobs:
         sudo apt-get -y install postgresql
     - name: Add password to postgres user
       run: |
-        psql -U postgres -c 'alter user postgres with encrypted password ${{ secrets.PG_USER_PASSWORD }};'
-    - name: Create postgres database
-      run: |
-        psql -U postgres -c 'CREATE DATABASE teste;'
-
-
-
-
+        pg_lsclusters
+    
         
