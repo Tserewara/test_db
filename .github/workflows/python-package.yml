@@ -36,6 +36,7 @@ jobs:
     
     - name: Create postgres database
       run: |
+        sudo -i -u postgres
         PGPASSWORD=${{ secrets.PG_USER_PASSWORD }} psql -U postgres -c 'CREATE DATABASE teste;'
 
    
