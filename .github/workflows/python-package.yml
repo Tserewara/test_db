@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install psycopg2-binary
+        pip install -r requirements.txt
     
     - name: Build Dockerfile
       run: |
@@ -32,6 +32,8 @@ jobs:
     
     - name: Spin up postgres container
       run: |
-        docker run -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 postgres-blog
-        sleep 5
-        python start_db.py
+        docker run --name postgres-blog -p 5432:5432 -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -d postgres-blog
+
+    - name: Run test pytest
+      run: |
+        pytest
