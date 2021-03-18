@@ -36,7 +36,4 @@ jobs:
     
     - name: Create postgres database
       run: |
-        sudo -i -u postgres
-        PGPASSWORD=${{ secrets.PG_USER_PASSWORD }} psql -U postgres -c 'CREATE DATABASE teste;'
-
-   
+        docker run --name postgres -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 -d postgres  
