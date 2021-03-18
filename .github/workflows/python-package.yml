@@ -28,7 +28,7 @@ jobs:
     
     - name: Create database
       run: |
-        docker exec postgres PGPASSWORD=${{ secrets.PG_USER_PASSWORD }} psql -U postgres -c 'CREATE DATABASE teste;'
+        docker exec postgres psql -U postgres -c 'CREATE DATABASE teste;'
       
       
       
