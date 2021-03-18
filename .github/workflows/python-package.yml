@@ -22,18 +22,6 @@ jobs:
       with:
         python-version: 3.9
     
-    - name: Install postgres
-      run: |
-        sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-        wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-        sudo apt-get update
-        sudo apt-get -y install postgresql
-    
-    - name: Start postgres service
-      run: |
-        sudo service postgresql start
-        psql -U postgres -c 'alter user postgres with encrypted password ${{ secrets.PG_USER_PASSWORD }};'
-    
     - name: Create postgres database
       run: |
         docker run --name postgres -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 -d postgres  
