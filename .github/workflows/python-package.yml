@@ -26,9 +26,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install psycopg2-binary
     
+    - name: Build Dockerfile
+      run: |
+        docker build -t postgres-blog .
+    
     - name: Spin up postgres container
       run: |
-        docker run --name postgres -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 -d postgres
+        docker run --name postgres-blog -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 -d postgres
     - name: Check port 5432
       run: |
         python start_db.py
