@@ -32,10 +32,6 @@ jobs:
     
     - name: Spin up postgres container
       run: |
-        docker run -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 postgres-blog
-    - name: Check port 5432
-      run: |
+        docker run -e POSTGRES_PASSWORD=${{ secrets.PG_USER_PASSWORD }} -p 5432:5432 -d postgres-blog
         python start_db.py
-
-      
-      
+        docker logs
