@@ -28,6 +28,7 @@ jobs:
         sudo apt-get -y install postgresql
     - name: Add password to postgres user
       run: |
+        sudo service postgresql start
         pg_lsclusters
     
         
