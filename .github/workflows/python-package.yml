@@ -16,19 +16,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    
     - name: Install postgres
       run: |
         sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
         wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
         sudo apt-get update
         sudo apt-get -y install postgresql
-    - name: Add password to postgres user
+    
+    - name: Start postgres service
       run: |
         sudo service postgresql start
-        pg_lsclusters
-    
-        
+
+    - name: Create postgres database
+      run: |
+        psql -U postgres -c 'CREATE DATABASE teste;'
+       
